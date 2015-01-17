@@ -24,7 +24,7 @@ public class ConverterListener implements ActionListener {
             } else if (con.dbW_a.getText().equals("") && !con.kW_a.getText().equals("")) {
                 // kW -> dbW
                 API.setStatus("Konvertiere...");
-                API.setdbW((Math.round((10 * Math.log10((API.getkW() * 1000))) * 100)) / 100);
+                API.setdbW(10 * Math.log10(API.getkW() * 1000));
                 API.setStatus("Fertig!");
             } else if (con.dbW_a.getText().equals("") && con.kW_a.getText().equals("")) {
                 API.setStatus("Bitte ein Feld ausfüllen!");

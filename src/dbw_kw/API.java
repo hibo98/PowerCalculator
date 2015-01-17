@@ -24,7 +24,7 @@ public class API {
         return Double.parseDouble(con.dbW_a.getText());
     }
     
-    public static void setdbW(Long dbW) {
+    public static void setdbW(Double dbW) {
         con.dbW_a.setText(String.valueOf(dbW));
     }
     
