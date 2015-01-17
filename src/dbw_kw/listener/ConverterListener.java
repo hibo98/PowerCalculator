@@ -35,6 +35,16 @@ public class ConverterListener implements ActionListener {
             API.resetdbW();
         } else if (e.getSource() == con.delkW) {
             API.resetkW();
+        } else if (e.getSource() == con.dbW_a) {
+            API.resetkW();
+            API.setStatus("Konvertiere...");
+            API.setkW(Math.pow(10, (API.getdbW() / 10)) / 1000);
+            API.setStatus("Fertig!");
+        } else if (e.getSource() == con.kW_a) {
+            API.resetdbW();
+            API.setStatus("Konvertiere...");
+            API.setdbW(10 * Math.log10(API.getkW() * 1000));
+            API.setStatus("Fertig!");
         }
     }
 }

@@ -9,17 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 
 public class Converter {
 
     public static Converter instance;
-    private final String version = "1.2";
+    private final String version = "1.3";
     private final String author = "hibo98";
     private final JFrame converter = new JFrame("Leistungs Rechner by " + author + " v" + version);
     private final JPanel panel1 = new JPanel();
     private final JPanel panel2 = new JPanel();
-    private final Border delBorder = BorderFactory.createEtchedBorder();
     public JButton convert = new JButton("Konvertieren");
     public JButton deldbW = new JButton("X");
     public JButton delkW = new JButton("X");
@@ -32,16 +30,18 @@ public class Converter {
         panel1.add(convert);
         panel2.add(new JLabel("dbW:"));
         panel2.add(dbW_a);
+        dbW_a.addActionListener(AL);
         panel2.add(deldbW);
         panel2.add(new JLabel("kW:"));
         panel2.add(kW_a);
+        kW_a.addActionListener(AL);
         panel2.add(delkW);
         panel2.add(status_a);
         convert.addActionListener(AL);
         deldbW.addActionListener(AL);
-        deldbW.setBorder(delBorder);
+        deldbW.setBorder(BorderFactory.createEtchedBorder());
         delkW.addActionListener(AL);
-        delkW.setBorder(delBorder);
+        delkW.setBorder(BorderFactory.createEtchedBorder());
         converter.add(panel1, BorderLayout.NORTH);
         converter.add(panel2);
         converter.addWindowListener(new WindowListener());
