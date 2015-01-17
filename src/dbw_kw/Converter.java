@@ -14,7 +14,7 @@ import javax.swing.border.Border;
 public class Converter {
 
     public static Converter instance;
-    private final String version = "1.1";
+    private final String version = "1.2";
     private final String author = "hibo98";
     private final JFrame converter = new JFrame("Leistungs Rechner by " + author + " v" + version);
     private final JPanel panel1 = new JPanel();
