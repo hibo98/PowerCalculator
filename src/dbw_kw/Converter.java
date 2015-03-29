@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 public class Converter {
 
     public static Converter instance;
-    private final String version = "1.3";
+    private final String version = "1.4";
     private final String author = "hibo98";
     private final JFrame converter = new JFrame("Leistungs Rechner by " + author + " v" + version);
     private final JPanel panel1 = new JPanel();
@@ -23,7 +23,7 @@ public class Converter {
     public JButton delkW = new JButton("X");
     public JTextField dbW_a = new JTextField(15);
     public JTextField kW_a = new JTextField(15);
-    public JLabel status_a = new JLabel();
+    public JLabel status_a = new JLabel("Bereit!");
     private final ConverterListener AL = new ConverterListener(this);
 
     public Converter() {
@@ -49,7 +49,6 @@ public class Converter {
         converter.setLocation(200, 200);
         converter.setResizable(false);
         converter.setVisible(true);
-        status_a.setText("Bereit!");
     }
     
     public static void main(String[] args) {

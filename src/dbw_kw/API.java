@@ -9,7 +9,7 @@ public class API {
     }
     
     public static Double getkW() {
-        return Double.parseDouble(con.kW_a.getText());
+        return Double.parseDouble(con.kW_a.getText().replaceAll(",", "."));
     }
     
     public static void setkW(Double kW) {
@@ -21,7 +21,7 @@ public class API {
     }
     
     public static Double getdbW() {
-        return Double.parseDouble(con.dbW_a.getText());
+        return Double.parseDouble(con.dbW_a.getText().replaceAll(",", "."));
     }
     
     public static void setdbW(Double dbW) {
