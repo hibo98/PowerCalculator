@@ -1,84 +1,73 @@
 package me.hibo98.power_calc;
 
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-public class PowerCalculator extends JFrame {
+public class PowerCalculator extends Application {
 
-    private final String version = "1.5";
-    private final JPanel panel = new JPanel();
-    private final JPanel statusPanel = new JPanel();
-    public JButton calculate = new JButton("Calculate");
-    public JTextField dbW = new JTextField(15);
-    public JTextField kW = new JTextField(15);
-    public JLabel status = new JLabel("STATUS: Ready");
+    private final String version = "2.0";
+    private final TextField dbW = new TextField();
+    private final TextField kW = new TextField();
+    private final Label status = new Label();
 
-    public PowerCalculator() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(205, 190);
-        setLocation(200, 200);
-        setResizable(false);
-        setVisible(true);
-        setTitle("Power Calc by hibo98 v" + version);
-        panel.add(new JLabel("dbW:"));
-        panel.add(dbW);
-        dbW.addActionListener((e) -> {
-            setkW(Math.pow(10, getdbW() / 10) / 1000);
-            status.setText("STATUS: Ready");
-        });
-        panel.add(new JLabel("kW:"));
-        panel.add(kW);
-        kW.addActionListener((e) -> {
-            setdbW(10 * Math.log10(getkW() * 1000));
-            status.setText("STATUS: Ready");
-        });
-        calculate.addActionListener((e) -> {
+    @Override
+    public void start(Stage stage) throws Exception {
+        BorderPane bp = new BorderPane();
+        GridPane gp = new GridPane();
+        gp.setPadding(new Insets(15));
+        gp.setHgap(15);
+        gp.setVgap(15);
+        Button calculate = new Button("Calculate");
+        calculate.setOnAction((e) -> {
+            status.setText("");
             if (kW.getText().isEmpty() && !dbW.getText().isEmpty()) {
                 // dbW -> kW
-                setkW(Math.pow(10, getdbW() / 10) / 1000);
+                kW.setText(String.valueOf(Math.pow(10, getdbW() / 10) / 1000));
             } else if (dbW.getText().isEmpty() && !kW.getText().isEmpty()) {
                 // kW -> dbW
-                setdbW(10 * Math.log10(getkW() * 1000));
+                dbW.setText(String.valueOf(10 * Math.log10(getkW() * 1000)));
             } else if (!dbW.getText().isEmpty() && !kW.getText().isEmpty()) {
                 status.setText("STATUS: Type only into one field!");
-                return;
             }
-            status.setText("STATUS: Ready");
         });
-        statusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        statusPanel.setSize(getWidth(), 16);
-        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-        statusPanel.add(status);
-        status.setHorizontalAlignment(SwingConstants.LEFT);
-        add(calculate, BorderLayout.NORTH);
-        add(panel);
-        add(statusPanel, BorderLayout.SOUTH);
+        gp.add(new StackPane(calculate), 0, 0, 2, 1);
+        gp.add(new Label("dbW:"), 0, 1);
+        dbW.setOnAction((e) -> {
+            status.setText("");
+            kW.setText(String.valueOf(Math.pow(10, getdbW() / 10) / 1000));
+        });
+        gp.add(dbW, 1, 1);
+        gp.add(new Label("kW:"), 0, 2);
+        kW.setOnAction((e) -> {
+            status.setText("");
+            dbW.setText(String.valueOf(10 * Math.log10(getkW() * 1000)));
+        });
+        gp.add(kW, 1, 2);
+        gp.add(status, 0, 3, 2, 1);
+        bp.setCenter(gp);
+        stage.setScene(new Scene(bp));
+        stage.setTitle("Power Calc " + version);
+        stage.setResizable(false);
+        stage.show();
     }
 
     public static void main(String[] args) {
-        new PowerCalculator();
+        launch(args);
     }
 
-    public Double getkW() {
+    public double getkW() {
         return Double.parseDouble(kW.getText().replaceAll(",", "."));
     }
 
-    public Double getdbW() {
+    public double getdbW() {
         return Double.parseDouble(dbW.getText().replaceAll(",", "."));
-    }
-
-    public void setkW(Double kW) {
-        this.kW.setText(String.valueOf(kW));
-    }
-
-    public void setdbW(Double dbW) {
-        this.dbW.setText(String.valueOf(dbW));
     }
 }
